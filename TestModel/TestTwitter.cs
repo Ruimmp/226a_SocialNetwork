@@ -10,7 +10,7 @@ namespace TestSocialNetworkModel
         #region private attributes
         Twitter _twitter;
         #endregion private attributes
-        
+
         [SetUp]
         public void Setup()
         {
@@ -94,9 +94,9 @@ namespace TestSocialNetworkModel
             //given
             //refere to Setup method
             int expectedAmountOfSubscribers = 30;
-            List<IObserver> followers = GenerateObserver(expectedAmountOfSubscribers/2);
+            List<IObserver> followers = GenerateObserver(expectedAmountOfSubscribers / 2);
             _twitter.Subscribe(followers);
-            List<IObserver> followers2nd = GenerateObserver(expectedAmountOfSubscribers/2);
+            List<IObserver> followers2nd = GenerateObserver(expectedAmountOfSubscribers / 2);
 
             //when
             _twitter.Subscribe(followers2nd);
@@ -120,6 +120,20 @@ namespace TestSocialNetworkModel
 
             //then
             Assert.Throws<SubscriberAlreadyExistsException>(delegate { _twitter.Subscribe(followersDuplicate); });
+        }
+
+        [Test]
+        public void Unsubscribe_EmptyListOfSubscriber_ThrowsException()
+        {
+            //given
+            //refer to Setup method
+            Follower followerToRemove = new Follower();
+
+            //when
+            //event is called directly by the assertion
+
+            //then
+            Assert.Throws<EmptyListOfSubscribersException>(delegate { _twitter.Unsubscribe(followerToRemove); });
         }
 
         [Test]
@@ -148,4 +162,4 @@ namespace TestSocialNetworkModel
         }
         #endregion private methods
     }
-}
+}git
