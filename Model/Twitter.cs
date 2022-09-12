@@ -83,4 +83,5 @@
     public class TwitterException : Exception { }
     public class EmptyListOfSubscribersException : TwitterException { }
     public class SubscriberAlreadyExistsException : TwitterException { }
+    public class SubscriberNotFoundException : TwitterException { }
 }
