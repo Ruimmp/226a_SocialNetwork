@@ -123,6 +123,20 @@ namespace TestSocialNetworkModel
         }
 
         [Test]
+        public void Unsubscribe_EmptyListOfSubscriber_ThrowsException()
+        {
+            //given
+            //refer to Setup method
+            Follower followerToRemove = new Follower();
+
+            //when
+            //event is called directly by the assertion
+
+            //then
+            Assert.Throws<EmptyListOfSubscribersException>(delegate { _twitter.Unsubscribe(followerToRemove); });
+        }
+
+        [Test]
         public void Unsubscribe_SubscriberNotFound_ThrowsException()
         {
             //given
