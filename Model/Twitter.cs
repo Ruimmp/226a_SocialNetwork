@@ -18,7 +18,7 @@
         {
             get
             {
-                throw new NotImplementedException();
+                return _observers;
             }
         }
 
