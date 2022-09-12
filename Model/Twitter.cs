@@ -26,7 +26,7 @@
         {
             get
             {
-                throw new NotImplementedException();
+                return _twits;
             }
         }        
 
@@ -36,7 +36,15 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Notify()
         {
-            throw new NotImplementedException();
+            if (_observers.Count == 0)
+            {
+                throw new EmptyListOfSubscribersException();
+            }
+                
+            foreach (IObserver observer in _observers)
+            {
+                observer.Update(this);
+            }
         }
 
         /// <summary>
@@ -46,7 +54,13 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Subscribe(List<IObserver> observers)
         {
-            throw new NotImplementedException();
+            foreach(IObserver observer in observers)
+            {
+                if(Exists(observer)){
+                    throw new SubscriberAlreadyExistsException();
+                }
+            }
+            _observers.AddRange(observers);
         }
 
         /// <summary>
@@ -56,26 +70,41 @@
         /// <exception cref="NotImplementedException"></exception>
         public void Unsubscribe(IObserver observer)
         {
-            throw new NotImplementedException();
+            if(_observers.Count == 0)
+            {
+                throw new EmptyListOfSubscribersException();
+            }
+            if (!Exists(observer))
+            {
+                throw new SubscriberNotFoundException();
+            }
+            _observers.Remove(observer);
         }
 
-        public void Post(string Twit)
+        public void Post(string twit)
         {
-            throw new NotImplementedException();
+            _twits.Add(twit);
         }
 
         public string LastTwit
         {
             get 
             {
-                throw new NotImplementedException();
+                return _twits.Last();
             }
         }
 
         #region private methods
-        private bool Exists(Follower followerToFind)
+        private bool Exists(IObserver followerToFind)
         {
-            throw new NotImplementedException();
+            foreach (Follower follower in _observers)
+            {
+                if (follower.Equals(followerToFind))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
         #endregion private methods
     }

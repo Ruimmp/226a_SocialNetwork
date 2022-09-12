@@ -141,13 +141,14 @@ namespace TestSocialNetworkModel
         {
             //given
             //refere to Setup method
-            IObserver follower = new Follower();
+            IObserver followerNotFound = new Follower();
+            _twitter.Subscribe(GenerateObserver(10));
 
             //when
             //event is called directly by the assertion
 
             //then
-            Assert.Throws<EmptyListOfSubscribersException>(delegate { _twitter.Unsubscribe(follower); });
+            Assert.Throws<SubscriberNotFoundException>(delegate { _twitter.Unsubscribe(followerNotFound); });
         }
 
         #region private methods
@@ -162,4 +163,4 @@ namespace TestSocialNetworkModel
         }
         #endregion private methods
     }
-}git
+}
