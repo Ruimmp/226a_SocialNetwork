@@ -42,9 +42,9 @@
         /// <summary>
         /// This method is designed to add a subscriber in the list of observers
         /// </summary>
-        /// <param name="observer">Observer to add to the list of observers</param>
+        /// <param name="observers">Observers to add to the list of observers</param>
         /// <exception cref="NotImplementedException"></exception>
-        public void Subscribe(List<IObserver> observer)
+        public void Subscribe(List<IObserver> observers)
         {
             throw new NotImplementedException();
         }
