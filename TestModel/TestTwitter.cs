@@ -123,6 +123,21 @@ namespace TestSocialNetworkModel
         }
 
         [Test]
+        public void Unsubscribe_NominalCase_Success()
+        {
+            //given
+            //refer to Setup method
+            List<IObserver> followers = GenerateObserver(20);
+            _twitter.Subscribe(followers);
+
+            //when
+            _twitter.Unsubscribe(followers[10]);
+
+            //then
+            Assert.AreEqual(followers.Count, _twitter.Observers.Count - 1);
+        }
+
+        [Test]
         public void Unsubscribe_EmptyListOfSubscriber_ThrowsException()
         {
             //given
