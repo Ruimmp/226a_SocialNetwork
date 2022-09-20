@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using SocialNetworkModel;
 using System.Collections.Generic;
+using static SocialNetworkModel.Twitter;
 
 namespace TestSocialNetworkModel
 {
@@ -29,35 +30,34 @@ namespace TestSocialNetworkModel
 
             //when
             Assert.AreEqual(exceptedAmountOfObservers, _twitter.Observers.Count);
-
         }
 
         [Test]
         public void Observers_AfterInstanciationWithObservers_Succes()
         {
             //when
-            int exceptedAmountOfObservers = 10;
-            _twitter = new Twitter(GenerateObserver(exceptedAmountOfObservers));
+            int expectedAmountOfObservers = 10;
+            _twitter = new Twitter(GenerateObserver(expectedAmountOfObservers));
 
             //then
             //event is called directly by the assertion
 
             //when
-            Assert.AreEqual(exceptedAmountOfObservers, _twitter.Observers.Count);
+            Assert.AreEqual(expectedAmountOfObservers, _twitter.Observers.Count);
         }
 
         [Test]
         public void Twits_AfterInstanciation_Success()
         {
             //when
-            int exceptedAmountOfTwits = 0;
+            int expectedAmountOfTwits = 0;
             _twitter = new Twitter();
 
             //then
             //event is called directly by the assertion
 
             //when
-            Assert.AreEqual(exceptedAmountOfTwits, _twitter.Twits.Count);
+            Assert.AreEqual(expectedAmountOfTwits, _twitter.Twits.Count);
         }
 
         [Test]
@@ -134,7 +134,7 @@ namespace TestSocialNetworkModel
             _twitter.Unsubscribe(followers[10]);
 
             //then
-            Assert.AreEqual(followers.Count, _twitter.Observers.Count - 1);
+            Assert.AreEqual(followers.Count - 1, _twitter.Observers.Count);
         }
 
         [Test]
