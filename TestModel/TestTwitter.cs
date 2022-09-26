@@ -19,7 +19,7 @@ namespace TestSocialNetworkModel
         }
 
         [Test]
-        public void Observers_AfterInstantiationWithoutObservers_Succes()
+        public void Observers_AfterInstantiationWithoutObservers_Success()
         {
             //when
             //refere to Setup method
@@ -33,11 +33,11 @@ namespace TestSocialNetworkModel
         }
 
         [Test]
-        public void Observers_AfterInstantiationWithObservers_Succes()
+        public void Observers_AfterInstantiationWithObservers_Success()
         {
             //when
             int expectedAmountOfObservers = 10;
-            _twitter = new Twitter(GenerateObserver(expectedAmountOfObservers));
+            _twitter = new Twitter(GenerateObservers(expectedAmountOfObservers));
 
             //then
             //event is called directly by the assertion
@@ -51,7 +51,6 @@ namespace TestSocialNetworkModel
         {
             //when
             int expectedAmountOfTwits = 0;
-            _twitter = new Twitter();
 
             //then
             //event is called directly by the assertion
@@ -64,7 +63,7 @@ namespace TestSocialNetworkModel
         public void Notify_EmptyListOfSubscriber_ThrowsException()
         {
             //given
-            //refere to Setup method
+            //refer to Setup method
 
             //when
             //event is called directly by the assertion
@@ -77,9 +76,9 @@ namespace TestSocialNetworkModel
         public void Subscribe_AddFirstSubscribers_Success()
         {
             //given
-            //refere to Setup method
+            //refer to Setup method
             int expectedAmountOfSubscribers = 15;
-            List<IObserver> followers = GenerateObserver(expectedAmountOfSubscribers);
+            List<IObserver> followers = GenerateObservers(expectedAmountOfSubscribers);
 
             //when
             _twitter.Subscribe(followers);
@@ -92,14 +91,14 @@ namespace TestSocialNetworkModel
         public void Subscribe_AddSubscribersToExistingList_Success()
         {
             //given
-            //refere to Setup method
+            //refer to Setup method
             int expectedAmountOfSubscribers = 30;
-            List<IObserver> followers = GenerateObserver(expectedAmountOfSubscribers / 2);
+            List<IObserver> followers = GenerateObservers(expectedAmountOfSubscribers / 2);
             _twitter.Subscribe(followers);
-            List<IObserver> followers2nd = GenerateObserver(expectedAmountOfSubscribers / 2);
+            List<IObserver> followersToAdd = GenerateObservers(expectedAmountOfSubscribers / 2);
 
             //when
-            _twitter.Subscribe(followers2nd);
+            _twitter.Subscribe(followersToAdd);
 
             //then
             Assert.AreEqual(expectedAmountOfSubscribers, _twitter.Observers.Count);
@@ -109,9 +108,9 @@ namespace TestSocialNetworkModel
         public void Subscribe_SubscriberAlreadyExists_ThrowsException()
         {
             //given
-            //refere to Setup method
+            //refer to Setup method
             int expectedAmountOfSubscribers = 15;
-            List<IObserver> followers = GenerateObserver(expectedAmountOfSubscribers);
+            List<IObserver> followers = GenerateObservers(expectedAmountOfSubscribers);
             _twitter.Subscribe(followers);
             List<IObserver> followersDuplicate = new List<IObserver> { followers[0] };
 
@@ -127,7 +126,7 @@ namespace TestSocialNetworkModel
         {
             //given
             //refer to Setup method
-            List<IObserver> followers = GenerateObserver(20);
+            List<IObserver> followers = GenerateObservers(20);
             _twitter.Subscribe(followers);
 
             //when
@@ -157,7 +156,7 @@ namespace TestSocialNetworkModel
             //given
             //refere to Setup method
             IObserver followerNotFound = new Follower();
-            _twitter.Subscribe(GenerateObserver(10));
+            _twitter.Subscribe(GenerateObservers(10));
 
             //when
             //event is called directly by the assertion
@@ -167,7 +166,7 @@ namespace TestSocialNetworkModel
         }
 
         #region private methods
-        private List<IObserver> GenerateObserver(int amountOfObserverToCreate)
+        private List<IObserver> GenerateObservers(int amountOfObserverToCreate)
         {
             List<IObserver> observers = new List<IObserver>();
             for (int i = 0; i < amountOfObserverToCreate; i++)
