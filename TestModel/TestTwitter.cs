@@ -19,7 +19,7 @@ namespace TestSocialNetworkModel
         }
 
         [Test]
-        public void Observers_AfterInstanciationWithoutObservers_Succes()
+        public void Observers_AfterInstantiationWithoutObservers_Succes()
         {
             //when
             //refere to Setup method
@@ -33,7 +33,7 @@ namespace TestSocialNetworkModel
         }
 
         [Test]
-        public void Observers_AfterInstanciationWithObservers_Succes()
+        public void Observers_AfterInstantiationWithObservers_Succes()
         {
             //when
             int expectedAmountOfObservers = 10;
@@ -47,7 +47,7 @@ namespace TestSocialNetworkModel
         }
 
         [Test]
-        public void Twits_AfterInstanciation_Success()
+        public void Twits_AfterInstantiation_Success()
         {
             //when
             int expectedAmountOfTwits = 0;
