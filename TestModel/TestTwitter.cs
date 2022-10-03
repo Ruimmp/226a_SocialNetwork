@@ -9,7 +9,7 @@ namespace TestSocialNetworkModel
     public class Tests
     {
         #region private attributes
-        Twitter _twitter;
+        Twitter? _twitter;
         #endregion private attributes
 
         [SetUp]
