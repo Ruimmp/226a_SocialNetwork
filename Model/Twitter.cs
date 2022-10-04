@@ -1,4 +1,6 @@
-﻿namespace SocialNetworkModel
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace SocialNetworkModel
 {
     public class Twitter : IObservable
     {
@@ -11,38 +13,62 @@
 
         public Twitter(List<IObserver> observers)
         {
-            throw new NotImplementedException();
+            _observers.AddRange(observers);
         }
         
         public List<IObserver> Observers
         {
-            get
-            {
-                throw new NotImplementedException();
+            get 
+            { 
+                return _observers; 
             }
         }
 
         public List<String> Twits
         {
-            get
-            {
-                throw new NotImplementedException();
+            get 
+            { 
+                return _twits; 
             }
         }        
 
         public void Notify()
         {
-            throw new NotImplementedException();
+            if (_observers.Count < 0)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                throw new EmptyListOfSubscribersException();
+            }
         }
 
         public void Subscribe(List<IObserver> observers)
         {
-            throw new NotImplementedException();
+            if (observers.Intersect(observers).Any())
+            {
+                _observers.AddRange(observers);
+            }
         }
 
         public void Unsubscribe(IObserver observer)
         {
-            throw new NotImplementedException();
+            /*
+            if (_observers.Count > 0 && _observers.Contains(observer))
+            {
+                _observers.Remove(observer);
+            }
+            else if (!_observers.Contains(observer))
+            {
+                throw new SubscriberNotFoundException();
+            } 
+            */
+
+            if(!_observers.Remove(observer))
+            {
+                throw new SubscriberNotFoundException();
+            }
         }
 
         public void Post(string twit)
@@ -66,11 +92,24 @@
         #endregion private methods
 
 
-        public class TwitterException : Exception { }
-        public class EmptyListOfSubscribersException : TwitterException { }
-        public class SubscriberAlreadyExistsException : TwitterException { }
-        public class SubscriberNotFoundException : TwitterException { }
+        public class TwitterException : Exception
+        { 
+
+        }
+
+        public class EmptyListOfSubscribersException : TwitterException 
+        { 
+
+        }
+
+        public class SubscriberAlreadyExistsException : TwitterException 
+        { 
+            
+        }
+
+        public class SubscriberNotFoundException : TwitterException 
+        { 
+
+        }
     }
-
-
 }
