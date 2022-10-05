@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace SocialNetworkModel
 {
@@ -47,8 +48,18 @@ namespace SocialNetworkModel
         public void Subscribe(List<IObserver> observers)
         {
             if (observers.Intersect(observers).Any())
-            {
-                _observers.AddRange(observers);
+            { 
+                foreach (var observer in observers)
+                {
+                    if (!_observers.Contains(observer))
+                    {
+                        _observers.Add(observer);
+                    }
+                    else
+                    {
+                        throw new SubscriberAlreadyExistsException();
+                    }
+                }
             }
         }
 
@@ -65,7 +76,11 @@ namespace SocialNetworkModel
             } 
             */
 
-            if(!_observers.Remove(observer))
+            if (_observers.Count == 0)
+            {
+                throw new EmptyListOfSubscribersException();
+            } 
+            else if (!_observers.Remove(observer))
             {
                 throw new SubscriberNotFoundException();
             }
@@ -91,25 +106,9 @@ namespace SocialNetworkModel
         }
         #endregion private methods
 
-
-        public class TwitterException : Exception
-        { 
-
-        }
-
-        public class EmptyListOfSubscribersException : TwitterException 
-        { 
-
-        }
-
-        public class SubscriberAlreadyExistsException : TwitterException 
-        { 
-            
-        }
-
-        public class SubscriberNotFoundException : TwitterException 
-        { 
-
-        }
+        public class TwitterException : Exception { }
+        public class EmptyListOfSubscribersException : TwitterException { }
+        public class SubscriberAlreadyExistsException : TwitterException { }
+        public class SubscriberNotFoundException : TwitterException { }
     }
 }
