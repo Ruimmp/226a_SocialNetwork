@@ -14,4 +14,13 @@ namespace SocialNetworkModel
             throw new NotImplementedException();
         }
     }
+
+    public class Twit : IObserver
+    {
+        //Receive update from the observable
+        public void Update(IObservable observable)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
