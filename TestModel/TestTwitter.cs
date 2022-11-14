@@ -73,6 +73,20 @@ namespace TestSocialNetworkModel
         }
 
         [Test]
+        public void Remove_EmptyListOfTwit_ThrowsException()
+        {
+            //given
+            //refer to Setup method
+            Twit twitToRemove = new Twit();
+
+            //when
+            //event is called directly by the assertion
+
+            //then
+            Assert.Throws<EmptyListOfTwitsException>(delegate { _twitter.Remove(twitToRemove); });
+        }
+
+        [Test]
         public void Subscribe_AddFirstSubscribers_Success()
         {
             //given
