@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection.Metadata.Ecma335;
-
-namespace SocialNetworkModel
+﻿namespace SocialNetworkModel
 {
     public class Twitter : IObservable
     {
@@ -19,76 +16,51 @@ namespace SocialNetworkModel
         
         public List<IObserver> Observers
         {
-            get 
-            { 
-                return _observers; 
+            get
+            {
+                return _observers;
             }
         }
 
         public List<String> Twits
         {
-            get 
-            { 
-                return _twits; 
+            get
+            {
+                return _twits;
             }
         }        
 
         public void Notify()
         {
-            if (_observers.Count < 0)
-            {
-                throw new NotImplementedException();
-            }
-            else
-            {
-                throw new EmptyListOfSubscribersException();
-            }
+            throw new EmptyListOfSubscribersException();
         }
 
         public void Subscribe(List<IObserver> observers)
         {
-            if (observers.Intersect(observers).Any())
-            { 
-                foreach (var observer in observers)
-                {
-                    if (!_observers.Contains(observer))
-                    {
-                        _observers.Add(observer);
-                    }
-                    else
-                    {
-                        throw new SubscriberAlreadyExistsException();
-                    }
-                }
+            if (_observers.Intersect(observers).Any())
+            {
+                throw new SubscriberAlreadyExistsException();
+            }
+            else
+            {
+                _observers.AddRange(observers);
             }
         }
 
         public void Unsubscribe(IObserver observer)
         {
-            /*
-            if (_observers.Count > 0 && _observers.Contains(observer))
-            {
-                _observers.Remove(observer);
-            }
-            else if (!_observers.Contains(observer))
-            {
-                throw new SubscriberNotFoundException();
-            } 
-            */
-
-            if (_observers.Count == 0)
-            {
-                throw new EmptyListOfSubscribersException();
-            } 
-            else if (!_observers.Remove(observer))
-            {
-                throw new SubscriberNotFoundException();
-            }
+            if (_observers.Count == 0) throw new EmptyListOfSubscribersException();
+            if (!_observers.Remove(observer)) throw new SubscriberNotFoundException();
         }
 
         public void Post(string twit)
         {
             throw new NotImplementedException();
+        }
+
+        public void Remove(IObserver twit)
+        {
+            if (_twits.Count == 0) throw new EmptyListOfTwitsException();
         }
 
         public string LastTwit
@@ -106,9 +78,11 @@ namespace SocialNetworkModel
         }
         #endregion private methods
 
+
         public class TwitterException : Exception { }
         public class EmptyListOfSubscribersException : TwitterException { }
         public class SubscriberAlreadyExistsException : TwitterException { }
         public class SubscriberNotFoundException : TwitterException { }
+        public class EmptyListOfTwitsException : TwitterException { }
     }
 }
